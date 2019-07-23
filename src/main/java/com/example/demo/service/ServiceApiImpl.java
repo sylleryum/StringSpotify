@@ -190,19 +190,25 @@ public class ServiceApiImpl implements ServiceApi {
             System.out.println("result " + response.getBody().getTracks().getItems().get(0).getArtists().get(0).getName() + " = " +
                     response.getBody().getTracks().getItems().get(0).getName() + " " + response.getBody().getTracks().getItems().get(0).getUri());
             return response.getBody().getTracks().getItems().get(0);
+//            if (response.getBody().getTracks().getItems().size()>0){
+//
+//            } else {
+//                System.out.println("spotify track not found item<1 " + trackToFind);
+//                return new Item(trackToFind);
+//            }
 
         } catch (RestClientResponseException e) {
             //System.out.println(e.getMessage());
-            System.out.println("Fail to find spotify track" + e.getResponseBodyAsString()+" "+trackToFind);
+            System.out.println("Fail to find spotify track " + e.getResponseBodyAsString()+" "+trackToFind);
             return new Item(trackToFind);
         } catch (Exception e) {
             //e.printStackTrace();
-            System.out.println("other find spotify track" + trackToFind);
+            System.out.println("other fail to find spotify track " + trackToFind);
             return new Item(trackToFind);
         }
     }
 
-    //TODO completablefuture
+
     @Override
     public List<Item> searchTracks(List<String> tracksToFind) {
         List<Item> tracksfound = new ArrayList<>();
@@ -223,6 +229,9 @@ public class ServiceApiImpl implements ServiceApi {
     public Boolean addTracks(Uri uris, String playlistID) {
         if (beforeCall() == null || playlistID.isEmpty()) {
             return null;
+        }
+        if (uris.getUris().size()<1){
+            return false;
         }
 
         String URL = "https://api.spotify.com/v1/playlists/" + playlistID + "/tracks";
@@ -271,17 +280,19 @@ public class ServiceApiImpl implements ServiceApi {
             listSuccessReturn.add(i.getArtists().get(0).getName()+" - "+i.getName());
         }
 
+        List<String> failedSongs = mapYt.get(false);
+        failedSongs.addAll(listFailed);
+        Map<Boolean, List<String>> mapReturn = new HashMap<>();
+        mapReturn.put(false, failedSongs);
         if (addTracks(new Uri(listToAdd),playlistID)){
-            List<String> failedSongs = mapYt.get(false);
-            failedSongs.addAll(listFailed);
 
-            Map<Boolean, List<String>> mapReturn = new HashMap<>();
             mapReturn.put(true, listSuccessReturn);
-            mapReturn.put(false, failedSongs);
-            return mapReturn;
+
         } else {
-            return null;
+            mapReturn.put(true, null);
+
         }
+        return mapReturn;
 
 
     }
