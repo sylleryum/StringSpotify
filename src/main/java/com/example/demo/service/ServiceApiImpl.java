@@ -266,8 +266,8 @@ public class ServiceApiImpl implements ServiceApi {
         /*List<String> uriList = tracks.parallelStream().map(l -> getClearSongName(l)).map(lItem->searchTrack(lItem).getUri()).collect(Collectors.toList());
         addTracks(new Uri(uriList), playlistID);*/
         //-------
-        Map<Boolean, List<String>> mapYt = tracks.parallelStream().map(i->getClearSongName(i)).collect(Collectors.partitioningBy(str-> !str.contains("\b")));
-        Map<Boolean, List<Item>> mapSp = mapYt.get(true).parallelStream().map(e->searchTrack(e)).collect(Collectors.partitioningBy(it->it.getUri()!=null));
+        Map<Boolean, List<String>> mapYt = tracks.stream().map(i->getClearSongName(i)).collect(Collectors.partitioningBy(str-> !str.contains("\b")));
+        Map<Boolean, List<Item>> mapSp = mapYt.get(true).stream().map(e->searchTrack(e)).collect(Collectors.partitioningBy(it->it.getUri()!=null));
 
         List<String> listFailed = mapSp.get(false).stream().map(i->i.getName()).collect(Collectors.toList());
         //listFailed.addAll(mapYt.get(false));
