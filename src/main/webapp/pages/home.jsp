@@ -64,13 +64,13 @@
                        value="Get started!"/>
             </td>
             <td rowspan="8" width="350px">
-                Songs added:
+                <p style="font-weight: bold">Songs added:</p>
                 <br>
                 <c:forEach var="success" items="${failedSongs.get(true)}">
                     <p>${success}</p>
                 </c:forEach>
-                <br>
-                Songs not found:
+
+                <p style="font-weight: bold">Songs not found:</p>
                 <br>
                 <c:forEach var="fail" items="${failedSongs.get(false)}">
                     <p>${fail}</p>
@@ -118,9 +118,6 @@
             <td>
                 <input type="submit" value="Go">
             </td>
-        </tr>
-        <tr>
-            <td>February</td>
         </tr>
     </table>
 
