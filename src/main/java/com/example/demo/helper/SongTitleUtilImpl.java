@@ -33,8 +33,8 @@ public class SongTitleUtilImpl implements SongTitleUtil {
         //**youtube with only english characters
         //youtubePattern = Pattern.compile("[^a-z0-9 ]|\\blyrics|hd|hq|lyric video|with lyrics|w/|video|official music\\b", Pattern.CASE_INSENSITIVE);
 
-        specialPattern = Pattern.compile("[!@#$%¨*()_\\-+={\\[}\\]º|\\\\,.:;?°]", Pattern.CASE_INSENSITIVE);
-        youtubePattern = Pattern.compile("[!@#$%¨*()_\\-+={\\[}\\]º|\\\\,.:;?°]|\\blyrics|hd|hq|lyric video|with lyrics|w/|video|official|official music\\b", Pattern.CASE_INSENSITIVE);
+        specialPattern = Pattern.compile("[\\u201C\\u201D\\u201E\\u201F\\u2033\\u2036\"!@#$%¨*()_\\-+={\\[}\\]º|\\\\,.:;?°]", Pattern.CASE_INSENSITIVE);
+        youtubePattern = Pattern.compile("[\\u201C\\u201D\\u201E\\u201F\\u2033\\u2036\"!@#$%¨*()_\\-+={\\[}\\]º|\\\\,.:;?°]|\\blyrics|hd|hq|lyric video|with lyrics|w/|video|official|official music\\b", Pattern.CASE_INSENSITIVE);
 
 
     }
@@ -70,7 +70,7 @@ public class SongTitleUtilImpl implements SongTitleUtil {
         } else {
             //System.out.println("song name");
             //return clearSpecialChar(trackName);
-            return trackName;
+            return clearSpecialChar(trackName);
         }
 
     }
@@ -107,12 +107,13 @@ public class SongTitleUtilImpl implements SongTitleUtil {
         try {
             return parameters.get("v").get(0);
         } catch (Exception e) {
-            System.out.println("unable to get youtube ID with V parameter " + url);
+
             String[] ss =  url.split("be/");
             String ok;
             if (ss.length>1){
                 return ss[1];
             }
+            System.out.println("unable to get youtube ID " + url);
             //e.printStackTrace();
             return null;
         }
