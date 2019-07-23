@@ -113,7 +113,7 @@ public class ServiceApiImpl implements ServiceApi {
 
     @Override
     public Playlist createPlaylist(String playlistName) {
-        if (beforeCall() == null) return null;
+        if (beforeCall() == null || playlistName==null) return null;
         if (user == null) user = getUserDetails();
         String URL_PLAYLIST = "https://api.spotify.com/v1/users/" + user.getId() + "/playlists";
 
@@ -174,6 +174,19 @@ public class ServiceApiImpl implements ServiceApi {
         if (user == null) user = getUserDetails();
 
         String theString = songTitleUtil.clearSpecialCharSong(trackToFind).replace(" ", "+");
+
+        /////////////trying to get details of the eventual nullpointer exception
+        try {
+            accessToken.getAccessToken();
+        } catch (Exception e){
+            System.out.println("**********access token null");
+            if (accessToken!=null){
+                System.out.println("access token is not null: "+accessToken);
+            }else{
+                System.out.println("access token is null");
+            }
+
+        }
 
         headers.add("Authorization", "Bearer " + accessToken.getAccessToken());
         HttpEntity<?> entity = new HttpEntity<>(headers);
@@ -253,7 +266,9 @@ public class ServiceApiImpl implements ServiceApi {
 
     @Override
     public Map<Boolean, List<String>> submitAddAllTracks(List<String> tracks, String playlistID) {
-
+        if (beforeCall() == null || tracks.isEmpty()) {
+            return null;
+        }
 
         //List<String> listResult = songTitleUtil.clearSpecialCharSongList(tracks);
 
@@ -266,8 +281,8 @@ public class ServiceApiImpl implements ServiceApi {
         /*List<String> uriList = tracks.parallelStream().map(l -> getClearSongName(l)).map(lItem->searchTrack(lItem).getUri()).collect(Collectors.toList());
         addTracks(new Uri(uriList), playlistID);*/
         //-------
-        Map<Boolean, List<String>> mapYt = tracks.stream().map(i->getClearSongName(i)).collect(Collectors.partitioningBy(str-> !str.contains("\b")));
-        Map<Boolean, List<Item>> mapSp = mapYt.get(true).stream().map(e->searchTrack(e)).collect(Collectors.partitioningBy(it->it.getUri()!=null));
+        Map<Boolean, List<String>> mapYt = tracks.parallelStream().map(i->getClearSongName(i)).collect(Collectors.partitioningBy(str-> !str.contains("\b")));
+        Map<Boolean, List<Item>> mapSp = mapYt.get(true).parallelStream().map(e->searchTrack(e)).collect(Collectors.partitioningBy(it->it.getUri()!=null));
 
         List<String> listFailed = mapSp.get(false).stream().map(i->i.getName()).collect(Collectors.toList());
         //listFailed.addAll(mapYt.get(false));
