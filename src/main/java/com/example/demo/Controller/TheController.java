@@ -61,7 +61,14 @@ public class TheController {
 //        for (Item ss:playlists) {
 //            System.out.println("== "+ss.getId()+" "+ss.getName()+" "+ss.getOwner());
 //        }
-        model.addAttribute("playlists", list);
+
+        if (list!=null){
+            model.addAttribute("playlists", list);
+        } else {
+            model.addAttribute("noToken", true);
+        }
+
+        System.out.println();
 
         return "home";
     }
@@ -87,10 +94,20 @@ public class TheController {
         if (playlistRadio.equalsIgnoreCase("existing")){
             mapReturn = serviceApi.submitAddAllTracks(tracksToFind, selectPlaylist);
         } else {
-            mapReturn = serviceApi.submitAddAllTracks(tracksToFind, serviceApi.createPlaylist(playlistName).getId());
+            Playlist playlist = serviceApi.createPlaylist(playlistName);
+            if (playlist!=null){
+                mapReturn = serviceApi.submitAddAllTracks(tracksToFind, playlist.getId());
+            } else {
+                mapReturn = null;
+            }
         }
 
-        theModel.addAttribute("failedSongs", mapReturn);
+        if (mapReturn!=null){
+            theModel.addAttribute("failedSongs", mapReturn);
+        } else {
+            theModel.addAttribute("noToken", true);
+        }
+
 
         ////////////////////******=====serviceApi.searchTracks(s);
 
