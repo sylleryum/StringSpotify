@@ -1,22 +1,16 @@
 package com.example.demo.Controller;
 
-import com.example.demo.Entity.AccessToken;
-import com.example.demo.Entity.Uri;
+import com.example.demo.Entity.Playlist;
 import com.example.demo.Entity.playlists.Item;
-import com.example.demo.Entity.playlists.PlaylistList;
 import com.example.demo.service.ServiceApi;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Controller
 public class TheController {
@@ -118,3 +112,4 @@ public class TheController {
         return "home";
     }
 }
+//TODO upload
