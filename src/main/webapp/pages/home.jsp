@@ -7,6 +7,11 @@
 <html>
 <head>
     <script>
+             var http = require("http");
+setInterval(function() {
+    http.get("https://stringspotify.herokuapp.com");
+}, 300000);
+             
         var token = ${noToken};
         if (token===true){
             alert("Please click in ''Get Started!''");
