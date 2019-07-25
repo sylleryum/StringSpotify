@@ -7,7 +7,6 @@
 <html>
 <head>
     <script>
-                
         var token = ${noToken};
         if (token===true){
             alert("Please click in ''Get Started!''");
@@ -69,14 +68,14 @@
                        value="Get started!"/>
             </td>
             <td rowspan="8" width="350px">
-                <div style="font-weight: bold">Songs added:</div>
-                <c:forEach var="success" items="${failedSongs.get(true)}">
+                <div style="font-weight: bold">Songs added (${failedSuccessSongs.get(true).size()}):</div>
+                <c:forEach var="success" items="${failedSuccessSongs.get(true)}">
                     <p>${success}</p>
                 </c:forEach>
 
                 <br>
-                <div style="font-weight: bold">Songs not found:</div>
-                <c:forEach var="fail" items="${failedSongs.get(false)}">
+                <div style="font-weight: bold">Songs not found (${failedSuccessSongs.get(false).size()}):</div>
+                <c:forEach var="fail" items="${failedSuccessSongs.get(false)}">
                     <p>${fail}</p>
                 </c:forEach>
 
