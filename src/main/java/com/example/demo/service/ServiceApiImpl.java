@@ -177,7 +177,7 @@ public class ServiceApiImpl implements ServiceApi {
 
         /////////////trying to get details of the eventual nullpointer exception
         try {
-            accessToken.getAccessToken();
+            headers.add("Authorization", "Bearer " + accessToken.getAccessToken());
         } catch (Exception e){
             System.out.println("**********access token null");
             if (accessToken!=null){
@@ -188,7 +188,8 @@ public class ServiceApiImpl implements ServiceApi {
 
         }
 
-        headers.add("Authorization", "Bearer " + accessToken.getAccessToken());
+
+        ////////////////////headers.add("Authorization", "Bearer " + accessToken.getAccessToken());
         HttpEntity<?> entity = new HttpEntity<>(headers);
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(ServiceApi.SEARCH)
                 .queryParam("type", "track")
@@ -200,7 +201,7 @@ public class ServiceApiImpl implements ServiceApi {
             HttpEntity<SearchResult> response = template.exchange(builder.toUriString(), HttpMethod.GET, entity, SearchResult.class);
             //System.out.println("result "+response.getBody());
             //System.out.println("you got here " + response.getBody());
-            System.out.println("result " + response.getBody().getTracks().getItems().get(0).getArtists().get(0).getName() + " = " +
+            System.out.println("SP track found: " + response.getBody().getTracks().getItems().get(0).getArtists().get(0).getName() + " = " +
                     response.getBody().getTracks().getItems().get(0).getName() + " " + response.getBody().getTracks().getItems().get(0).getUri());
             return response.getBody().getTracks().getItems().get(0);
 //            if (response.getBody().getTracks().getItems().size()>0){
@@ -212,11 +213,11 @@ public class ServiceApiImpl implements ServiceApi {
 
         } catch (RestClientResponseException e) {
             //System.out.println(e.getMessage());
-            System.out.println("Fail to find spotify track " + e.getResponseBodyAsString()+" "+trackToFind);
+            System.out.println("*******Fail to find spotify track " + e.getResponseBodyAsString()+" "+trackToFind);
             return new Item(trackToFind);
         } catch (Exception e) {
             //e.printStackTrace();
-            System.out.println("other fail to find spotify track " + trackToFind);
+            System.out.println("*******other fail to find spotify track " + trackToFind);
             return new Item(trackToFind);
         }
     }
@@ -282,7 +283,7 @@ public class ServiceApiImpl implements ServiceApi {
         addTracks(new Uri(uriList), playlistID);*/
         //-------
         Map<Boolean, List<String>> mapYt = tracks.parallelStream().map(i->getClearSongName(i)).collect(Collectors.partitioningBy(str-> !str.contains("\b")));
-        Map<Boolean, List<Item>> mapSp = mapYt.get(true).parallelStream().map(e->searchTrack(e)).collect(Collectors.partitioningBy(it->it.getUri()!=null));
+        Map<Boolean, List<Item>> mapSp = mapYt.get(true).stream().map(e->searchTrack(e)).collect(Collectors.partitioningBy(it->it.getUri()!=null));
 
         List<String> listFailed = mapSp.get(false).stream().map(i->i.getName()).collect(Collectors.toList());
         //listFailed.addAll(mapYt.get(false));
