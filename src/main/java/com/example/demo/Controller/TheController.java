@@ -97,7 +97,8 @@ public class TheController {
         }
 
         if (mapReturn!=null){
-            theModel.addAttribute("failedSongs", mapReturn);
+
+            theModel.addAttribute("failedSuccessSongs", mapReturn);
         } else {
             theModel.addAttribute("noToken", true);
         }
