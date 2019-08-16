@@ -39,7 +39,6 @@ public class SongTitleUtilImpl implements SongTitleUtil {
 
     }
 
-    //TODO to move
     static public String matchSong(Item track) {
         return null;
     }
@@ -84,7 +83,6 @@ public class SongTitleUtilImpl implements SongTitleUtil {
         return theReturn;
     }
 
-    //TODO change to private
     @Override
     public String clearYoutubeChar(String trackName) {
         matcher = youtubePattern.matcher(trackName);
