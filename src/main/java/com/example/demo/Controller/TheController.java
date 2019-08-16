@@ -94,6 +94,7 @@ public class TheController {
             mapReturn = serviceApi.submitAddAllTracks(tracksToFind, selectPlaylist);
         } else {
             Playlist playlist = serviceApi.createPlaylist(playlistName);
+            listPlaylist = serviceApi.getPlaylists();
             if (playlist!=null){
                 mapReturn = serviceApi.submitAddAllTracks(tracksToFind, playlist.getId());
             } else {
