@@ -7,10 +7,7 @@
 <html>
 <head>
     <script>
-        var token = ${noToken};
-        if (token===true){
-            alert("Please click in ''Get Started!''");
-        }
+
         function validation() {
             var errors = "";
             if (document.getElementById("rNew").checked) {
@@ -20,6 +17,7 @@
             } else if (!document.getElementById("rNew").checked && !document.getElementById("rExisting").checked) {
                 errors = "Please select new or existing playlist";
             }
+
             if (document.getElementById("searchName").value === "") {
                 errors += "\rPlease insert songs or youtube links";
             }
@@ -33,6 +31,15 @@
 
         }
 
+
+
+
+    </script>
+    <script>
+        var token = <c:out value="${noToken}"/>;
+        if (token===true){
+            alert("Please click in ''Get Started!''");
+        }
     </script>
     <style type="text/css">
 
@@ -40,16 +47,16 @@
             border: 1px solid black;
         }
 
-        html, body{
+        html, body {
             height: 100%;
         }
 
-        html{
+        html {
             display: table;
             width: 100%;
         }
 
-        body{
+        body {
             display: table-cell;
             text-align: center;
         }
@@ -126,7 +133,7 @@
 
 
     <br>
-
+    <div>Find more information and source code at: <a href="https://github.com/sylleryum/StringSpotify" target="_blank">https://github.com/sylleryum/StringSpotify</a></div>
     <br>
 
 
