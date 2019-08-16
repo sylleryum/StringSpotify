@@ -12,7 +12,7 @@ https://www.youtube.com/watch?v=4k4SP01l6rY will fetch a result as: Gorillaz - F
 the app will then convert it to Gorillaz Feel Good Inc<br>
 Similarly song: Snail Mail "Pristi!ne" will be converted to Snail Mail Pristine<br>
 <br><br>
-Issues/next steps:
+Issues/next steps:<br>
 -In some rare cases some songs which can be found searching directly on Spotify can't be found through the API call (to be verified);<br>
 -Spotify's access token is valid for one hour, after this the app should get you a new one based on a refresh token, however, the documentation doesn't explain what is the valifity of the refresh token, therefore, if app isn't working after a long time stopped, it may be needed to press in "Get started" one more time (to be tested/verified the expiration of refresh token);<br>
 -Implement cookies after investigating the above;<br>
