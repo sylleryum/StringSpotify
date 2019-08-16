@@ -19,8 +19,12 @@ public class TheController {
     ServiceApi serviceApi;
 
 
-    @GetMapping("/")
-    public String home() {
+   @GetMapping("/")
+    public String home(Model model) {
+
+        if (listPlaylist!=null){
+            model.addAttribute("playlists", listPlaylist);
+        }
         return "home";
     }
 
@@ -34,7 +38,7 @@ public class TheController {
     //TODO put coooooooookies
 
     @GetMapping("/callback")
-    public String callback(@RequestParam String code) {
+    public String callback(@RequestParam String code, Model model) {
 
         //        Cookie cookie = new Cookie("test", "avalue123");
         //        cookie.setMaxAge(60*60*24);
@@ -42,22 +46,21 @@ public class TheController {
         //System.out.println("code: " + code);
         //ServiceApiImpl serviceApi = new ServiceApiImpl();
         serviceApi.getAccessToken(code);
+
+        listPlaylist = serviceApi.getPlaylists();
+        model.addAttribute("playlists", listPlaylist);
+
+
         return "home";
     }
 
     @GetMapping("/userDetails")
     public String userDetails(Model model) {
 
-        //////////serviceApi.getUserDetails();
-        List<Item> list = serviceApi.getPlaylists();
 
-//        List<Item> playlists = playlistList.getItems();
-//        for (Item ss:playlists) {
-//            System.out.println("== "+ss.getId()+" "+ss.getName()+" "+ss.getOwner());
-//        }
-
-        if (list!=null){
-            model.addAttribute("playlists", list);
+        listPlaylist = serviceApi.getPlaylists();
+        if (listPlaylist!=null){
+            model.addAttribute("playlists", listPlaylist);
         } else {
             model.addAttribute("noToken", true);
         }
@@ -75,8 +78,8 @@ public class TheController {
 
     @GetMapping("/searchTrack")
     public String searchTrack(@RequestParam(value = "searchName", required = false) String searchName, @RequestParam(value = "playlistName", required = false) String playlistName,
-                              @RequestParam(value = "selectPlaylist", required = false) String selectPlaylist, @RequestParam("playlistRadio") String playlistRadio, Model theModel){
-        if (searchName==null){System.out.println("no songs");return "home";}
+                              @RequestParam(value = "selectPlaylist", required = false) String selectPlaylist, @RequestParam(value = "playlistRadio") String playlistRadio, Model theModel){
+        if (searchName.isEmpty()){System.out.println("no songs");return "home";}
 
         List<String> tracksToFind = Arrays.asList(searchName.split("\\r?\\n"));
 
@@ -103,14 +106,8 @@ public class TheController {
             theModel.addAttribute("noToken", true);
         }
 
+        theModel.addAttribute("playlists", listPlaylist);
 
-        ////////////////////******=====serviceApi.searchTracks(s);
-
-        //Arrays.asList(s).forEach(s1-> System.out.println(s1));
-        //List list = Arrays.stream(searchName.split("\\n")).collect(Collectors.toList());
-        //System.out.println("name before "+list);
-        //serviceApi.searchTrack(trackName);
         return "home";
     }
 }
-//TODO upload
