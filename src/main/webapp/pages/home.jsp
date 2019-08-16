@@ -133,7 +133,7 @@
 
 
     <br>
-    <div>Find more information and source code at: <a href="https://github.com/sylleryum/StringSpotify" target="_blank">https://github.com/sylleryum/StringSpotify</a></div>
+    <div>Instructions, more information and source code at: <a href="https://github.com/sylleryum/StringSpotify" target="_blank">https://github.com/sylleryum/StringSpotify</a></div>
     <br>
 
 
