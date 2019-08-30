@@ -3,16 +3,19 @@ package com.example.demo.service;
 import com.example.demo.Entity.*;
 import com.example.demo.Entity.playlists.PlaylistList;
 import com.example.demo.Entity.youtube.Youtube;
+import com.example.demo.helper.LoggingRequestInterceptor;
 import com.example.demo.helper.SongTitleUtil;
 import com.example.demo.helper.YoutubeUtil;
 import org.springframework.http.*;
+import org.springframework.http.client.BufferingClientHttpRequestFactory;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,12 +52,14 @@ public class ServiceApiImpl implements ServiceApi {
         cleaner();
 
         System.out.println("new token request");
-        headers.add("Authorization", ServiceApi.AUTHORIZATION_TO_ACCESS);
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.add("Authorization", ServiceApi.AUTHORIZATION_TO_ACCESS);
+
         bodyParameters.add("grant_type", "authorization_code");
         bodyParameters.add("code", theCode);
-        bodyParameters.add("redirect_uri", "https://stringspotify.herokuapp.com/callback");
+        bodyParameters.add("redirect_uri", "http://localhost:8080/callback");
         requestEntity = new HttpEntity<>(bodyParameters, headers);
+
 
         return tokenCall(requestEntity);
     }
@@ -360,14 +365,16 @@ public class ServiceApiImpl implements ServiceApi {
     private void cleaner() {
         headers.clear();
         bodyParameters.clear();
-        //bodyParameters.clear();
     }
 
     private AccessToken tokenCall(HttpEntity<MultiValueMap<String, String>> requestEntityCall) {
         try {
-            accessToken = template.postForObject(ServiceApi.GET_ACCESS, requestEntity, AccessToken.class);
-            accessToken.setValidity(3600000 + System.currentTimeMillis());
+            ///////accessToken = template.postForObject(ServiceApi.GET_ACCESS, requestEntityCall, AccessToken.class);
+            //template = new RestTemplate();
+            this.accessToken = template.postForObject(ServiceApi.GET_ACCESS, requestEntityCall, AccessToken.class);
+            this.accessToken.setValidity(3600000 + System.currentTimeMillis());
             System.out.println("Access acquired " + accessToken + " **" + accessToken.getValidity());
+
             return accessToken;
         } catch (RestClientResponseException e) {
             System.out.println(e.getMessage());
@@ -382,5 +389,19 @@ public class ServiceApiImpl implements ServiceApi {
     public void test(AccessToken accessToken) {
         this.accessToken = accessToken;
     }
-    //
+
+    @Override
+    public void testRefresh(String refresh){
+        this.accessToken.setRefreshToken(refresh);
+    }
+
+    @Override
+    public RestTemplate interceptorRest(){
+        RestTemplate restTemplate = new RestTemplate(new BufferingClientHttpRequestFactory(new SimpleClientHttpRequestFactory()));
+        List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
+        interceptors.add(new LoggingRequestInterceptor());
+        restTemplate.setInterceptors(interceptors);
+        return restTemplate;
+    }
+
 }

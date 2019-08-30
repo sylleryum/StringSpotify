@@ -45,6 +45,7 @@
 
         table, th, td {
             border: 1px solid black;
+            overflow: hidden;
         }
 
         html, body {
@@ -133,7 +134,7 @@
 
 
     <br>
-    <div>Instructions, more information and source code at: <a href="https://github.com/sylleryum/StringSpotify" target="_blank">https://github.com/sylleryum/StringSpotify</a></div>
+    <div>Find more information and source code at: <a href="https://github.com/sylleryum/StringSpotify" target="_blank">https://github.com/sylleryum/StringSpotify</a></div>
     <br>
 
 

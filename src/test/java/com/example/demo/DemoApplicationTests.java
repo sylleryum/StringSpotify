@@ -17,8 +17,11 @@ import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -26,8 +29,8 @@ import java.util.stream.Collectors;
 @SpringBootTest
 public class DemoApplicationTests {
 
-    String baseUrl = "https://accounts.spotify.com/api/token/";
-    String CODE = "AQDoERYYT8yRF3AjXFpwszqLcy89fypCUMp8Azb1RCr2xnljlzh1oOm6Cpmn0bbuUhkHWH9_-OS7DZkfwVTk-ODqgD_o_ytC0Q2g9stev0xDYEx_0WiyiZHMsGKyXQ7lk73wISMKkeUeiLNaFmNhO9mse6Q_4n1juX-c0dedzoWnLssuMbT5oMm328eaziV8n_S-Yo9jTaZ657o2JwnGeHo6HrqmPT9_eEfDKGPkSI20nMyne4TFSMpg8nucuucP9fhiR--IvDKd4QjCRu-EBQGlHXXScjeLc3tacZeBqAds491BAm91rxISZ8lkvzC1TNVXMqlsjMSLPldy4gT4LyJ-G3NPoFuucIUWacCn";
+    String baseUrl = "https://accounts.spotify.com/api/token";
+    String CODE = "AQDfvwVJkR2UuDIKfwRNAqxUKRoL9HAe_foyboL9t03cR_YGHqYdTmb8crpSmks93dvKQuft99IiUPbM-f2MpSz1wI4kZpJF0LUbQ38awFVwdjiyKHGKDWzk1X4F_8jFTGCKaDCcBwK_RSfUZfAyDshilkPBg582MT-S2GBaOagptElx64w0S4C8eyVFM9fXrDZWlFik2Tj9gQyUOxY2Wrk5gOXEOHkyYnmz67Ve3FZ2gXuiJFVc65PBFJcNj8hp4gdF6_wCv6dFZAE7bzOvC15u6_OhlFlt7LLIEOR-aZjWgVci3xo5_7i7c_bR0Cz_7S_YcxFya1cs1e3D6O1AFIHOwMO28aMLa7tEmkJb";
     String AUTHORIZATION = "Bearer BQB0Q5ThoEzmdqXwLH7q0_KoFNjw3Pgl80xFBa_PKIcQmk0S7d8AR9GkbLgiXbmjYC8tQYPQhmGQgn3Z3i8pXuvp15awKZy1pd214ogATe2eyNu1Z3UQhXMo6JOC5eDYsqkAzc6cg3T6YRMnlDD3w0BKbUn1MdKt8hm2QCO-P7s5ZEfakiqm85fPl_U8YWyiQBQbdVvxWjMKl2wYB3dc1XMoGMmJX6O-C8hVVu03dH0";
 
     @Autowired
@@ -40,15 +43,18 @@ public class DemoApplicationTests {
     @Test
     public void theTest(){
 
-        String s = "https://youtu";
+        //String s = "Snail Mail \"Pristi!ne\"";
+        String s = "BUBBLE PUPPY Hot Smoke & Sassafras";
 
         //Optional<String> optional = Optional.ofNullable(s.split("be/")[1]);
-        String[] ss =  s.split("be/");
-        String ok;
-        if (ss.length>1){
-            ok=ss[1];
-        }
-        System.out.println();
+
+        //System.out.println(songTitleUtil.clearSpecialCharSong(s));
+
+        AccessToken accesstoken = new AccessToken("BQC41XeSKs-xkmPo9PrhPDtOeORap1RNRBXDz1xdiI2KhUNeyNaWpnxaEVPT-t2ZIbWYXyiTOSpKIU03Zv2R4MK0DK3P9SA-F2F990P2on_Sx9m-PyH2rKsDq8G5ySYPx3W8QHlV4LqF8CcKrml04fSBIAU4TkGrUp3SCQimR0HobkhIvOLEgf3-yFd7hn2MERkxjz2_2jNBt-F0Mwa17JMwn40VPPdD7nkDBneYSqY",
+                3600000 + System.currentTimeMillis());
+        serviceApi.test(accesstoken);
+        serviceApi.testRefresh("AQC3iZ75gRGcIOUBUKaPnL4AUDNKRv7aUL-T1_tb6g-dXJixErA4zdSkK53ZikS1xj8aBH7-2CjuqpqNdjhpUBUImbIdtvdc9iP_OC9bQMoFGRMRNEwYjXzVfUVizQPHcJmeZw");
+        serviceApi.beforeCall();
 
     }
 
@@ -60,12 +66,15 @@ public class DemoApplicationTests {
         list.add("https://www.youtu");
         list.add("kin k - kiukjioo");
         list.add("https://www.youtube.com/watch?v=uAsV5-Hv-7U");
+
         //validity 3600000 + System.currentTimeMillis()
 
         //****Set access token to use serviceApi's spotify API
-        AccessToken accesstoken = new AccessToken("BQAhpbc08ZteXI9ze_0nYNez79LnwVvE2_ZjNyAMbpNNHAFKmfSBqq_QO6CghjBnqstmCF3UJZR5PRPx_-yvCkS7ePHBjopS8OJOTQh2QGcN-8qGCGPbAH0V9_iBzPzu56NpxcduiOVFD3ciSDe7s5gJKo-ePZMy4Z9iXI1HPVO93ZZ6RM_t8sdr9_z_Hr-4DCQs3wvT2NJCvYvEJDk9H2aq5DXMknhVt3ZhSV_NsZA",
+        AccessToken accesstoken = new AccessToken("BQC41XeSKs-xkmPo9PrhPDtOeORap1RNRBXDz1xdiI2KhUNeyNaWpnxaEVPT-t2ZIbWYXyiTOSpKIU03Zv2R4MK0DK3P9SA-F2F990P2on_Sx9m-PyH2rKsDq8G5ySYPx3W8QHlV4LqF8CcKrml04fSBIAU4TkGrUp3SCQimR0HobkhIvOLEgf3-yFd7hn2MERkxjz2_2jNBt-F0Mwa17JMwn40VPPdD7nkDBneYSqY",
                 3600000 + System.currentTimeMillis());
         serviceApi.test(accesstoken);
+        //serviceApi.testRefresh("AQC3iZ75gRGcIOUBUKaPnL4AUDNKRv7aUL-T1_tb6g-dXJixErA4zdSkK53ZikS1xj8aBH7-2CjuqpqNdjhpUBUImbIdtvdc9iP_OC9bQMoFGRMRNEwYjXzVfUVizQPHcJmeZw");
+
 
         Map<Boolean, List<String>> mapYt = list.stream().map(i->serviceApi.getClearSongName(i)).collect(Collectors.partitioningBy(str-> !str.contains("\b")));
 
@@ -117,6 +126,7 @@ public class DemoApplicationTests {
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
         //map.add("Authorization", "Basic M2JjZDNmMDVmYTBiNDVkOWE4MTY4ZmFmMjNhYjg3Mjk6Yzc4YWI5YzE5YmRhNGY3MzgwMDA5M2E3NDdiMmJjODg=");
+
         map.add("grant_type", "authorization_code");
         map.add("code", CODE);
         map.add("redirect_uri", "https://www.getpostman.com/oauth2/callback");
@@ -126,21 +136,47 @@ public class DemoApplicationTests {
 //        map.add("code", code);
 //        map.add("grant_type", "authorization_code");
 
+
         HttpEntity<MultiValueMap<String, String>> requestEntity=
                 new HttpEntity<MultiValueMap<String, String>>(map, headers);
-        String token = "deu ruim";
         try{
             System.out.println("try");
-            AccessToken accessToken = template.postForObject(url, requestEntity,  AccessToken.class);
+            template = new RestTemplate();
+            AccessToken accessToken = template.postForObject(baseUrl, requestEntity,  AccessToken.class);
             //accessToken = response.getAccessToken() + " - " + response.getTokenType();
             System.out.println("FEITOOOOOOOOO "+accessToken.getAccessToken());
         }
-        catch(Exception e){
+        catch(RestClientResponseException e) {
             System.out.println(e.getMessage());
+            System.out.println("Fail " + e.getResponseBodyAsString());
         }
 
 
         //return token;
+    }
+
+    @Test
+    public void getTokenNew(){
+
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        httpHeaders.set("Authorization", "Basic M2JjZDNmMDVmYTBiNDVkOWE4MTY4ZmFmMjNhYjg3Mjk6Yzc4YWI5YzE5YmRhNGY3MzgwMDA5M2E3NDdiMmJjODg=");
+
+        MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<>();
+        requestBody.add("grant_type", "authorization_code");
+        requestBody.add("code", CODE);
+        requestBody.add("redirect_uri", "https://www.getpostman.com/oauth2/callback");
+
+        HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(requestBody, httpHeaders);
+        try {
+            AccessToken response = restTemplate.postForObject("https://accounts.spotify.com/api/token", httpEntity, AccessToken.class);
+            System.out.println("success: "+response);
+            //httpServletResponse.setHeader("Location", url); // redirect to success page
+        }
+        catch(HttpClientErrorException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
