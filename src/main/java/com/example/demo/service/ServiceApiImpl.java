@@ -57,7 +57,7 @@ public class ServiceApiImpl implements ServiceApi {
 
         bodyParameters.add("grant_type", "authorization_code");
         bodyParameters.add("code", theCode);
-        bodyParameters.add("redirect_uri", "http://localhost:8080/callback");
+        bodyParameters.add("redirect_uri", "https://stringspotify.herokuapp.com/callback");
         requestEntity = new HttpEntity<>(bodyParameters, headers);
 
 
