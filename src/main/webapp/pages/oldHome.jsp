@@ -3,14 +3,11 @@
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <meta charset="utf-8">
-    <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="resources/css/new-style.css">
-
+    <link rel="stylesheet"
+          href="resources/css/style.css">
     <script>
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -23,7 +20,6 @@
 
             <c:otherwise>
             document.getElementById("main-window").classList.remove("block-style");
-            document.getElementById("main-window").classList.add("program-container");
             </c:otherwise>
             </c:choose>
 
@@ -69,31 +65,62 @@
     </script>
 
 </head>
-<body>
+<body style="">
 
 <form action="searchTrack" onsubmit="return validation()">
 
+    <div id="no-token" class="block-style">
+        <input type="button" onclick="location.href='${pageContext.request.contextPath}/authorize';"
+               value="Get started!"/>
 
-    <div class="page-container">
-        <div id="no-token" class="block-style">
-            <input type="button" onclick="location.href='${pageContext.request.contextPath}/authorize';"
-                   value="Get started!"/>
+    </div>
+    <div id="main-window" class="block-style">
+        <table>
 
-        </div>
-        <div class="block-style" id="main-window">
-            <div class="main-menu">
 
-                <div class="main-select">
+            <tr>
+                <td>
+                    <input type="button" onclick="location.href='${pageContext.request.contextPath}/authorize';"
+                           value="Get started!"/>
+                </td>
+                <td rowspan="8" width="350px">
+                    <div style="font-weight: bold">Songs added (${failedSuccessSongs.get(true).size()}):</div>
+                    <c:forEach var="success" items="${failedSuccessSongs.get(true)}">
+                        <p>${success}</p>
+                    </c:forEach>
+
+                    <br>
+                    <div style="font-weight: bold">Songs not found (${failedSuccessSongs.get(false).size()}):</div>
+                    <c:forEach var="fail" items="${failedSuccessSongs.get(false)}">
+                        <p>${fail}</p>
+                    </c:forEach>
+
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="button" onclick="location.href='${pageContext.request.contextPath}/userDetails';"
+                           value="Get my playlists"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <input type="radio" id="rNew" name="playlistRadio" value="new" onchange="radioChecker()">New
                     playlist
-                    <input type="radio" id="rExisting" name="playlistRadio" value="existing"
-                           onchange="radioChecker()">Existing
+                    <input type="radio" id="rExisting" name="playlistRadio" value="existing" onchange="radioChecker()">Existing
                     playlist
-                </div>
-                <div class="main-playlist">
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <div id="new-playlist" class="block-style">
                         Playlist name: <input type="text" id="playlistName" name="playlistName"/>
                     </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <div id="existing-playlist" class="block-style">
                         <span>Your playlists:</span>
                         <select name="selectPlaylist">
@@ -102,40 +129,50 @@
                             </c:forEach>
                         </select>
                     </div>
-                </div>
-                <div>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     Search tracks:
-                </div>
-                <div class=" main-textarea">
-                    <textarea class="textarea-search" id="searchName" name="searchName" placeholder="Paste your songs here"></textarea>
-                </div>
-                <div class="main-go">
-                    <button type="submit" id="submit-button">
-                        Go
-                    </button>
-                </div>
+                    <br>
+                    <textarea rows="10" cols="70" id="searchName" name="searchName"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Go">
+                </td>
+            </tr>
 
-            </div>
-            <div class="separator"></div>
-            <div class="results-menu">
-                <div class="success">
-                    <h4>Songs added (${failedSuccessSongs.get(true).size()}):</h4>
-                    <c:forEach var="success" items="${failedSuccessSongs.get(true)}">
-                        <p>${success}</p>
-                    </c:forEach>
-                </div>
-                <div class="failure">
-                    <h4>Songs not found (${failedSuccessSongs.get(false).size()}):</h4>
-                    <c:forEach var="fail" items="${failedSuccessSongs.get(false)}">
-                        <p>${fail}</p>
-                    </c:forEach>
-                </div>
-            </div>
 
-        </div>
+        </table>
     </div>
 
+    <br>
+    <div>Find more information and source code at: <a href="https://github.com/sylleryum/StringSpotify" target="_blank">https://github.com/sylleryum/StringSpotify</a>
+    </div>
+    <br>
+
+
+    <br>
+
+    <%--<button type="button" onclick="(function() {--%>
+    <%--window.location='/createPlaylist?playlistName='+document.getElementsByName('playlistName')[0].value;--%>
+    <%--})();">Create playlist--%>
+    <%--</button>--%>
+    <br>
+
+
+    <br><br>
+
+    <br>
+
+
 </form>
+<br>
+
 
 </body>
+
+
 </html>

@@ -31,6 +31,8 @@ public interface ServiceApi {
      */
     String getClearSongName(String v);
 
+    boolean isAccessToken();
+
     void test(AccessToken accessToken);
 
 

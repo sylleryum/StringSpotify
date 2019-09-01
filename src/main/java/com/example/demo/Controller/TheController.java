@@ -27,6 +27,12 @@ public class TheController {
         if (listPlaylist!=null){
             model.addAttribute("playlists", listPlaylist);
         }
+
+        //TODO reactivate
+        if (!serviceApi.isAccessToken()){
+            model.addAttribute("noToken", true);
+        }
+
         return "home";
     }
 
@@ -36,8 +42,6 @@ public class TheController {
         return "redirect:" + ServiceApi.AUTHORIZE_URL;
 
     }
-
-    //TODO put coooooooookies
 
     @GetMapping("/callback")
     public String callback(@RequestParam String code, Model model) {

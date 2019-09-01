@@ -1,0 +1,23 @@
+table, th, td {
+    border: 1px solid black;
+    overflow: hidden;
+}
+
+html, body {
+    height: 100%;
+}
+
+html {
+    display: table;
+    width: 100%;
+}
+
+body {
+    display: table-cell;
+    text-align: center;
+}
+
+.block-style {
+    display: none;
+    border: none;
+}

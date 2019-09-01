@@ -386,6 +386,15 @@ public class ServiceApiImpl implements ServiceApi {
     }
 
     @Override
+    public boolean isAccessToken(){
+        if(accessToken!=null){
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    @Override
     public void test(AccessToken accessToken) {
         this.accessToken = accessToken;
     }

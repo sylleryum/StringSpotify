@@ -41,7 +41,16 @@ public class DemoApplicationTests {
     ServiceApi serviceApi;
 
     @Test
+    public void newTest(){
+        String aString = "A-87B9C143D24E940|jOmbFACBBAAAAADB2";
+        String S0 = aString.substring((aString.indexOf("A")+1), aString.indexOf("B"));
+        System.out.println(S0);
+    }
+
+    @Test
     public void theTest(){
+
+
 
         //String s = "Snail Mail \"Pristi!ne\"";
         String s = "BUBBLE PUPPY Hot Smoke & Sassafras";
