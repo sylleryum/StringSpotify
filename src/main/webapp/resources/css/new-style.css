@@ -150,7 +150,6 @@ body, html, form,
 
 .credits-container:not(.page-container){
     height: 100%;
-    border: 1px solid black;
     bottom: 0;
     padding: 10px;
     margin-left: -20px;
