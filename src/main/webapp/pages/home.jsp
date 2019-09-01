@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="resources/css/new-style.css">
+    <title>Create a Spotify playlist with your songlist</title>
 
     <script>
 
@@ -19,6 +20,7 @@
             <c:choose>
             <c:when test="${noToken==true}">
             document.getElementById("no-token").classList.remove("block-style");
+            document.getElementById("no-token").classList.add("no-token");
             </c:when>
 
             <c:otherwise>
@@ -71,14 +73,15 @@
 </head>
 <body>
 
-<form action="searchTrack" onsubmit="return validation()">
+<form action="searchTrack" id="submit-btn" onsubmit="return validation()">
 
-
+    <div class="credits-container">
     <div class="page-container">
-        <div id="no-token" class="block-style">
-            <input type="button" onclick="location.href='${pageContext.request.contextPath}/authorize';"
-                   value="Get started!"/>
+        <div id="no-token" class="block-style" onclick="location.href='/authorize';" style="cursor:pointer;">
+<%--            <input type="button" id="get-started" onclick="location.href='${pageContext.request.contextPath}/authorize';"--%>
+<%--                   value="Click here to start"/>--%>
 
+            <a href="/authorize">Click here to start</a>
         </div>
         <div class="block-style" id="main-window">
             <div class="main-menu">
@@ -133,8 +136,10 @@
             </div>
 
         </div>
-    </div>
 
+    </div>
+    <div class="credits">Find more information and source code at: <a href="https://github.com/sylleryum/StringSpotify" target="_blank">https://github.com/sylleryum/StringSpotify</a></div>
+    </div>
 </form>
 
 </body>

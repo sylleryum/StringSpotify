@@ -21,9 +21,11 @@
 
 input, button, select{
     background-color: #69779b;
+    border: none;
 }
 
-body, html{
+body, html, form,
+#submit-btn{
     /*background-color: black;*/
     background-color: #013A6B;
     background-image: -webkit-linear-gradient(30deg, #d7eaea 50%, #9692af 50%);
@@ -35,6 +37,23 @@ body, html{
     body, html{
         background-image: -webkit-linear-gradient(10deg, #d7eaea 50%, #9692af 50%);
     }
+}
+
+.no-token{
+    width: 50%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: x-large;
+    padding: 10%;
+    font-weight: bold;
+    overflow-wrap: break-word;
+    background-color: #69779b;
+}
+
+.no-token:hover{
+    background-color: #5d6986;
 }
 
 .page-container{
@@ -50,13 +69,12 @@ body, html{
     height: 100%;
     display: flex;
     flex-direction: column;
-
+    z-index: 2;
 }
 
 
-.program-container div{
+.program-container div:not(#new-playlist):not(#existing-playlist){
     padding: 5px;
-
 }
 
 .main-menu{
@@ -78,7 +96,7 @@ body, html{
 }
 
 .main-select{
-    flex:4;
+    flex:1;
 }
 .main-playlist{
     flex:4;
@@ -113,7 +131,7 @@ body, html{
 }
 
 .success{
-    border-bottom: 1px solid #3500D3;
+    border-bottom: 1px solid #d7eaea;
 }
 
 @media only screen and (min-width: 799px) {
@@ -130,5 +148,23 @@ body, html{
     }
 }
 
+.credits-container:not(.page-container){
+    height: 100%;
+    border: 1px solid black;
+    bottom: 0;
+    padding: 10px;
+    margin-left: -20px;
+    overflow-wrap: break-word;
+    overflow: scroll;
+}
+.credits{
+    padding-left: 20px;
+    text-align: left;
+    width: 120%;
+    background-color: none;
+    background-image: none;
+    background-color: #69779b;
 
-
+    position: fixed;
+    z-index: 1;
+}
