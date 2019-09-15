@@ -1,8 +1,10 @@
 # StringSpotify
-Available at: https://stringspotify.herokuapp.com/<br>
-you paste a list of song names and/or youtube music's URL and it converts into a Spotify playlist (full description below)
-![system working](https://github.com/sylleryum/StringSpotify/blob/master/system.gif)
 
+<hr>
+Available at: https://stringspotify.herokuapp.com/<br>
+Paste a list of song names and/or youtube music's URL and it converts into a Spotify playlist (full description below)
+![system working](https://github.com/sylleryum/StringSpotify/blob/master/description.gif)
+<hr>
 -Simply press in "Get started" to authorize this app to create playlists/add songs to your spotify (for regular cases pressing once is enough, for longer use please check issues/next steps session below<br>
 -You can either create a new playlist or add songs to an existing one<br>
 -Paste song name (preferably in the format of artist name - song name)<br>
