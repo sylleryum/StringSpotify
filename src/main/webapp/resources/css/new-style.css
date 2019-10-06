@@ -24,6 +24,11 @@ input, button, select{
     border: none;
 }
 
+button:hover {
+    background-color: #5d6986;
+    text-decoration: underline;
+}
+
 body, html, form,
 #submit-btn{
     /*background-color: black;*/
