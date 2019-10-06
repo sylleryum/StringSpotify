@@ -9,7 +9,7 @@
     <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="resources/css/new-style.css">
+    <link rel="stylesheet" href="resources/css/style.css">
     <title>Create a Spotify playlist with your songlist</title>
 
     <script>
