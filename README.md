@@ -7,7 +7,7 @@ Paste a list of song names and/or youtube music's URL and it converts into a Spo
 
 
 ## Full description
-* Simply press in "Get started" to authorize this app to create playlists/add songs to your spotify (for regular cases pressing once is enough, for longer use please check issues/next steps session below<br>
+* Simply press in "Get started" to authorize this app to create playlists/add songs to your spotify<br>
 * You can either create a new playlist or add songs to an existing one<br>
 * Paste song name (preferably in the format of artist name - song name)<br>
 * One song per line<br>
