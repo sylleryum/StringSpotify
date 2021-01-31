@@ -19,5 +19,5 @@ Similarly song: Snail Mail "Pristi!ne" will be converted to Snail Mail Pristine<
 
 ## Issues/next steps
 * In some rare cases some songs which can be found searching directly on Spotify can't be found through the API call (to be verified);<br>
-* <strike>Spotify's access token is valid for one hour, after this the app should get you a new one based on a refresh token, however, the documentation doesn't explain what is the valifity of the refresh token, therefore, if app isn't working after a long time stopped, it may be needed to press in "Get started" one more time (to be tested/verified the expiration of refresh token);<br>
+* <strike>Spotify's access token is valid for one hour, after this the app should get you a new one based on a refresh token, however, the documentation doesn't explain what is the validity of the refresh token, therefore, if app isn't working after a long time stopped, it may be needed to press in "Get started" one more time (to be tested/verified the expiration of refresh token);<br>
 * Developing a not so ugly user interface (if anyone wants to contribute, feel free);</strike>
