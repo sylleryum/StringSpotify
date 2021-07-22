@@ -1,7 +1,7 @@
 # StringSpotify
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/sylleryum/StringSpotify/blob/master/LICENSE.txt)
 
-Available at: https://stringspotify.herokuapp.com/<br>
+Available at: https://stringspotify.herokuapp.com/<br> for demonstration purposes, please note that no authentication is implemented and therefore you should be running from your owne machine after cloning this repo
 Paste a list of song names and/or youtube music's URL and it converts into a Spotify playlist (full description below)
 ![system working](https://github.com/sylleryum/StringSpotify/blob/master/description.gif)
 
