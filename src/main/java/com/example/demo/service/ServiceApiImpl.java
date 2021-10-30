@@ -6,6 +6,7 @@ import com.example.demo.Entity.youtube.Youtube;
 import com.example.demo.helper.LoggingRequestInterceptor;
 import com.example.demo.helper.SongTitleUtil;
 import com.example.demo.helper.YoutubeUtil;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.*;
 import org.springframework.http.client.BufferingClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
@@ -23,6 +24,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
+@Scope("session")
 public class ServiceApiImpl implements ServiceApi {
 
 

@@ -4,6 +4,7 @@ import com.example.demo.Entity.Playlist;
 import com.example.demo.Entity.playlists.Item;
 import com.example.demo.service.ServiceApi;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+@Scope("session")
 public class TheController {
 
     @Autowired
