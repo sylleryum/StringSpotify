@@ -1,3 +1,5 @@
+# Important: as of November 28th this project needs to be ran locally as Heroku which was the hosting it, has closed its free tier services.
+
 # StringSpotify
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/sylleryum/StringSpotify/blob/master/LICENSE.txt)
 
